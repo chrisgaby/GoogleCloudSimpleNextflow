@@ -1,4 +1,4 @@
-FROM nfcore/base
+FROM biocontainers/mash:v2.1dfsg-2-deb_cv1
 MAINTAINER Pablo P <pablo@lifebit.ai>
 
 COPY ./environment.yml /
