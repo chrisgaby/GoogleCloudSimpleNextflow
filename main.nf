@@ -47,49 +47,24 @@ process fastqDump {
 	"""	
 }
 
-process star {
+process mash {
 
 	publishDir params.resultdir, mode: 'copy'
 
-	cpus threads
+	cpus threads # This might not be needed if only one SRA read file is processed on 1 thread at a time?
 
 	input:
 	file read from reads
 	file index from star_index.collect()
 
 	output:
-	file '*.bam' into alignedReads
-
+	file '*.msh' into publishDir # Did I do this right?
+	
 	script:
 	readName = read.toString() - ~/(\.fastq\.gz)?$/
 	
 	"""
-	STAR --genomeDir $index --readFilesIn $read --runThreadN ${task.cpus} --readFilesCommand zcat --outSAMtype BAM Unsorted --outFileNamePrefix $readName
-
-	"""
-}
-
-process count {
-
-	publishDir params.resultdir, mode: 'copy'
-
-	cpus threads
-
-	input:
-	file('*') from alignedReads.collect()
-
-	output:
-	file('counts.RData') into countData
-
-	script:
-	"""
-        #!/usr/bin/env Rscript
-
-	library(Rsubread)
-	allbams = list.files(pattern=\"*.bam\")
-	hg19ann <- getInBuiltAnnotation(\"hg19\")
-	counts <- featureCounts(files=allbams, annot.ext=hg19ann, nthreads=${task.cpus})
-	colnames(counts\$counts) <- allbams
-	save(counts, file=\"counts.RData\")
+	mash sketch -r -c 30 -s 1000 -k 21 -m 2 -o $readName $read
+	#-p ${task.cpus}
 	"""
 }
