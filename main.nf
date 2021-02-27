@@ -1,6 +1,6 @@
-params.star_index = "s3://ngi-igenomes/igenomes/Homo_sapiens/UCSC/hg19/Sequence/STARIndex/"
+params.star_index = "gs://sra-pub-run-6/SRR12660755/SRR12660755.1"
 
-params.project = "SRP033351"
+params.project = "SRR12660755"
 
 params.resultdir = 'results'
 
