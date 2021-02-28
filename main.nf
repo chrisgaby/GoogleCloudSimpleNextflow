@@ -1,4 +1,4 @@
-params.star_index = "gs://sra-pub-run-6/SRR12660755/SRR12660755.1"
+params.index = "gs://usda-salmonella-data-extracts/dataInputs/entericaSRAAccessions.txt"
 
 params.project = "SRR12660755"
 
@@ -9,19 +9,22 @@ projectSRId = params.project
 
 int threads = Runtime.getRuntime().availableProcessors()
 
+Channel.fromPath(params.index, checkIfExists: true).set { samples_ch }
+
 process getSRAIDs {
 	
 	cpus 1
 
 	input:
-	val projectID from projectSRId
+	file accIDs from sample_ch
 	
 	output:
 	file 'sra.txt' into sraIDs
 	
 	script:
 	"""
-	esearch -db sra -query $projectID  | efetch --format runinfo | grep SRR | cut -d ',' -f 1 > sra.txt
+	< head $accIDs -n 2 > sra.txt
+	# esearch -db sra -query $projectID  | efetch --format runinfo | grep SRR | cut -d ',' -f 1 > sra.txt
 	"""
 }
 
