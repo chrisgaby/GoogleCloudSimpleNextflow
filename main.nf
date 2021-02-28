@@ -17,6 +17,7 @@ process getSRAIDs {
 
 	input:
 	file accIDs from samples_ch
+	val projectID from projectSRId
 	
 	output:
 	file 'sra.txt' into sraIDs
