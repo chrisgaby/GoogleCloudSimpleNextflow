@@ -45,11 +45,11 @@ process fastqDump {
 	"""	
 }
 
-process mash {
+process mashSketch {
 
 	publishDir params.resultdir, mode: 'copy'
 
-	cpus threads # This might not be needed if only one SRA read file is processed on 1 thread at a time?
+	cpus threads 
 
 	input:
 	file read from reads
