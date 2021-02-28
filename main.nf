@@ -62,6 +62,6 @@ process mashSketch {
 	readName = read.toString() - ~/(\.fastq\.gz)?$/
 	
 	"""
-	mash sketch -r -c 30 -s 1000 -k 21 -m 2 -o $readName $read -p ${task.cpus}
+	mash sketch -r -c 30 -s 1000 -k 21 -m 2 -o $readName $read # -p ${task.cpus}
 	"""
 }
