@@ -9,14 +9,16 @@ projectSRId = params.project
 
 int threads = Runtime.getRuntime().availableProcessors()
 
-Channel.fromPath(params.index, checkIfExists: true).set { samples_ch }
+
 
 process getSRAIDs {
-	
+		
+	publishDir params.resultdir, mode: 'copy'
+
 	cpus 1
 
 	input:
-	file accIDs from samples_ch
+	path 'accIDs' from params.index
 	val projectID from projectSRId
 	
 	output:
@@ -24,7 +26,7 @@ process getSRAIDs {
 	
 	script:
 	"""
-	< head $accIDs -n 2 > sra.txt
+	head accIDs -n 2 > sra.txt
 	"""
 }
 
