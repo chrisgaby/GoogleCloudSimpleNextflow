@@ -4,6 +4,9 @@ params.project = "SRR12660755"
 
 params.resultdir = 'results'
 
+params.outputdir = "gs://usda-salmonella-data-extracts/dataOutputs/"
+
+
 projectSRId = params.project
 
 
@@ -52,7 +55,7 @@ process fastqDump {
 
 process mashSketch {
 
-	publishDir params.resultdir, mode: 'copy'
+	publishDir params.outputdir, mode: 'copy'
 
 	cpus threads 
 
