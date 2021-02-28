@@ -1,4 +1,4 @@
-FROM nfcore/base
+FROM nfcore/base:1.12.1
 MAINTAINER Pablo P <pablo@lifebit.ai>
 
 COPY ./environment.yml /
