@@ -6,8 +6,6 @@ params.resultdir = 'results'
 
 projectSRId = params.project
 
-star_index = Channel.fromPath(params.star_index)
-					.ifEmpty { exit 1, "STAR index not found: ${params.star_index}" }
 
 int threads = Runtime.getRuntime().availableProcessors()
 
@@ -64,7 +62,6 @@ process mash {
 	readName = read.toString() - ~/(\.fastq\.gz)?$/
 	
 	"""
-	mash sketch -r -c 30 -s 1000 -k 21 -m 2 -o $readName $read
-	#-p ${task.cpus}
+	mash sketch -r -c 30 -s 1000 -k 21 -m 2 -o $readName $read -p ${task.cpus}
 	"""
 }
