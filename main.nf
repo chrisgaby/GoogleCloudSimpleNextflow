@@ -16,7 +16,7 @@ process getSRAIDs {
 	cpus 1
 
 	input:
-	file accIDs from sample_ch
+	file accIDs from samples_ch
 	
 	output:
 	file 'sra.txt' into sraIDs
