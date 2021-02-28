@@ -25,7 +25,6 @@ process getSRAIDs {
 	script:
 	"""
 	< head $accIDs -n 2 > sra.txt
-	# esearch -db sra -query $projectID  | efetch --format runinfo | grep SRR | cut -d ',' -f 1 > sra.txt
 	"""
 }
 
