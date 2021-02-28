@@ -26,7 +26,7 @@ process getSRAIDs {
 	
 	script:
 	"""
-	head accIDs -n 2 > sra.txt
+	tail accIDs -n +2 > sra.txt
 	"""
 }
 
