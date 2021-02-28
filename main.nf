@@ -53,10 +53,10 @@ process mashSketch {
 
 	input:
 	file read from reads
-	file index from star_index.collect()
+	
 
 	output:
-	file '*.msh' into publishDir # Did I do this right?
+	file '*.msh' into publishDir 
 	
 	script:
 	readName = read.toString() - ~/(\.fastq\.gz)?$/
